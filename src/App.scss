@@ -167,13 +167,184 @@
       font-weight: 500;
       color: white;
       font-size: 16px;
-      transition: all 1s;
+      transition: all 0.5s;
       cursor: pointer;
       &:hover{
         background-color: #174a8b;
-        transition: all 1s;
+        transition: all 0.5s;
       }
     }
-    
   }
+}
+
+.input-active{
+  width: 100%;
+  height: 45px;
+  outline: none;
+  border: 1px solid #534d95;
+}
+
+.wrapper-selectPlan-block{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  &__content{
+    width: 70%;
+    height: 85%;
+    margin-bottom: 30px;
+    position: relative;
+    &_title{
+      color: #002054;
+      margin-bottom: 10px;
+    }
+    &_description{
+      color: #939499;
+    }
+    &_block-bill{
+      width: 100%;
+      height: 180px;
+      margin-top: 40px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      &_arcade-block,
+      &_advanced-block,
+      &_pro-block{
+        width: 30%;
+        height: 100%;
+        border: 1px solid #d9d9db;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &:hover{
+          border: 1px solid #544d91;
+        }
+        &_description{
+          width: 80%;
+          height: 80%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          &_img{
+            width: 40px;
+            height: 40px;
+          }
+          &_info{
+            h4{
+              color: #102345;
+            }
+            p{
+              color: #a0a1a6;
+              font-size: 14px;
+            }
+            &_bonus{
+              color: #64738a;
+              font-weight: 700;
+              font-size: 14px;
+            }
+          }
+          
+        }
+      }
+    }
+    &_change-bill{
+      width: 100%;
+      height: 50px;
+      background-color: #f8f9fe;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      &_month-active,
+      &_year-active{
+        font-weight: 700;
+        color: #142247;
+      }
+      &_month-inactive,
+      &_year-inactive{
+        font-weight: 700;
+        color: #9797a1;
+      }
+      &_slider{
+        margin-top: 3px;
+        width: 45px;
+        height: 23px;
+        border-radius: 17px;
+        background-color: #04285a;
+        position: relative;
+        cursor: pointer;
+        &_circle-monthly{
+          margin-left: 5px;
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background-color: white;
+          position: absolute;
+          top: 17%;
+        }
+        &_circle-yearly{
+          margin-right: 5px;
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background-color: white;
+          position: absolute;
+          top: 17%;
+          right: 0;
+        }
+      }
+    }
+    &_next-back{
+      width: 100%;
+      height: 45px;
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      &_back{
+        width: 120px;
+        height: 45px;
+        border: none;
+        outline: none;
+        color: #9e9fa4;
+        background: white;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.5s;
+        cursor: pointer;
+        &:hover{
+          color: #172b50;
+          font-weight: 600;
+          transition: all 0.5s;
+        }
+      }
+      &_next{
+        width: 120px;
+        height: 45px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        background-color: #03295a;
+        font-weight: 500;
+        color: white;
+        font-size: 16px;
+        transition: all 0.5s;
+        cursor: pointer;
+        &:hover{
+          background-color: #174a8b;
+          transition: all 0.5s;
+      }
+      }
+    }
+  }
+}
+
+.selected {
+  border: 1px solid blue;
+  background-color: #f8f9fe;
 }
