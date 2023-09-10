@@ -348,3 +348,36 @@
   border: 1px solid blue;
   background-color: #f8f9fe;
 }
+
+.wrapper-addOns-block{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  &__content{
+    width: 70%;
+    height: 85%;
+    margin-bottom: 30px;
+    border: 1px solid black;
+    &_title{
+      color: #002054;
+      margin-bottom: 10px;
+    }
+    &_description{
+      color: #939499;
+    }
+    &_block-bill{
+      width: 100%;
+      height: 250px;
+      margin-top: 40px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid red;
+    }
+    &_next-back{
+      
+    }
+  }
+}

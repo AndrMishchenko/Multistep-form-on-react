@@ -22,10 +22,11 @@ function App() {
   const [arcadeBill, setArcadeBill] = useState(null);
   const [advancedBill, setAdvancedBill] = useState(null);
   const [proBill, setProBill] = useState(null);
+  const [plan, setPlan] = useState('')
 
   const [activeInput, setActiveInput] = useState('');
   const [activeBillPlan, setActiveBillPlan] = useState('')
-  console.log(activeBillPlan)
+  const [billPrice, setBillPrice] = useState('')
 
   useEffect(() => {
     if(bill === 'monthly'){
@@ -84,7 +85,7 @@ function App() {
   }
 
   const thirdPage = () => {
-
+    setNavigation('add-ons')
   }
 
   const changeBill = () => {
@@ -93,6 +94,11 @@ function App() {
     }else{
       setBill('monthly')
     }
+  }
+
+  const planSelection = (selectedPlan, billAmount) => {
+    setActiveBillPlan(selectedPlan);
+    setBillPrice(billAmount);
   }
 
   return (
@@ -211,7 +217,7 @@ function App() {
                       <>
                         <div 
                           className={`wrapper-selectPlan-block__content_block-bill_arcade-block ${activeBillPlan === 'arcade' ? 'selected' : ''}`}
-                          onClick={() => setActiveBillPlan('arcade')}>
+                          onClick={() => planSelection('arcade', arcadeBill)}>
                           <div className='wrapper-selectPlan-block__content_block-bill_arcade-block_description'>
                             <img className='wrapper-selectPlan-block__content_block-bill_arcade-block_description_img' src={arcade}></img>
                             <div className='wrapper-selectPlan-block__content_block-bill_arcade-block_description_info'>
@@ -222,7 +228,7 @@ function App() {
                         </div>
                         <div 
                           className={`wrapper-selectPlan-block__content_block-bill_advanced-block ${activeBillPlan === 'advanced' ? 'selected' : ''}` }
-                          onClick={() => setActiveBillPlan('advanced')}>
+                          onClick={() => planSelection('advanced', advancedBill)}>
                           <div className='wrapper-selectPlan-block__content_block-bill_advanced-block_description'>
                             <img className='wrapper-selectPlan-block__content_block-bill_advanced-block_description_img' src={advanced}></img>
                               <div className='wrapper-selectPlan-block__content_block-bill_advanced-block_description_info'>
@@ -233,7 +239,7 @@ function App() {
                         </div>
                         <div 
                           className={`wrapper-selectPlan-block__content_block-bill_pro-block ${activeBillPlan === 'pro' ? 'selected' : ''}`} 
-                          onClick={() => setActiveBillPlan('pro')}>
+                          onClick={() => planSelection('pro', proBill)}>
                           <div className='wrapper-selectPlan-block__content_block-bill_pro-block_description'>
                             <img className='wrapper-selectPlan-block__content_block-bill_pro-block_description_img' src={pro}></img>
                               <div className='wrapper-selectPlan-block__content_block-bill_pro-block_description_info'>
@@ -247,7 +253,10 @@ function App() {
 
                     {navigation === 'select plan' && bill === 'yearly' && (
                       <>
-                        <div className='wrapper-selectPlan-block__content_block-bill_arcade-block'>
+                        <div 
+                          className='wrapper-selectPlan-block__content_block-bill_arcade-block'
+                          onClick={() => planSelection('arcade', arcadeBill)}
+                        >
                           <div className='wrapper-selectPlan-block__content_block-bill_arcade-block_description'>
                             <img className='wrapper-selectPlan-block__content_block-bill_arcade-block_description_img' src={arcade}></img>
                             <div className='wrapper-selectPlan-block__content_block-bill_arcade-block_description_info'>
@@ -257,7 +266,10 @@ function App() {
                             </div>
                           </div>
                         </div>
-                        <div className='wrapper-selectPlan-block__content_block-bill_advanced-block'>
+                        <div 
+                          className='wrapper-selectPlan-block__content_block-bill_advanced-block'
+                          onClick={() => planSelection('advanced', advancedBill)}  
+                        >
                           <div className='wrapper-selectPlan-block__content_block-bill_advanced-block_description'>
                             <img className='wrapper-selectPlan-block__content_block-bill_advanced-block_description_img' src={advanced}></img>
                             <div className='wrapper-selectPlan-block__content_block-bill_advanced-block_description_info'>
@@ -267,7 +279,10 @@ function App() {
                             </div>
                           </div>
                         </div>
-                        <div className='wrapper-selectPlan-block__content_block-bill_pro-block'>
+                        <div 
+                          className='wrapper-selectPlan-block__content_block-bill_pro-block'
+                          onClick={() =>planSelection('pro', proBill)}  
+                        >
                           <div className='wrapper-selectPlan-block__content_block-bill_pro-block_description'>
                             <img className='wrapper-selectPlan-block__content_block-bill_pro-block_description_img' src={pro}></img>
                             <div className='wrapper-selectPlan-block__content_block-bill_pro-block_description_info'>
@@ -279,6 +294,7 @@ function App() {
                         </div>
                       </>
                     )}
+                    
                   </div>
                   <div className='wrapper-selectPlan-block__content_change-bill'>
                     <div className={bill === 'monthly' ? 'wrapper-selectPlan-block__content_change-bill_month-active' : 'wrapper-selectPlan-block__content_change-bill_month-inactive'}>Monthly</div>
@@ -301,6 +317,30 @@ function App() {
                   </div>
                 </div>
               </div>
+            )}
+
+            {navigation === 'add-ons' && (
+              <>
+                <div className='wrapper-addOns-block'>
+                  <div className='wrapper-addOns-block__content'>
+                    <h1 className='wrapper-addOns-block__content_title'>Pick add-ons</h1>
+                    <p className='wrapper-addOns-block__content_description'>Add-ons help enhance your gaming experience</p>
+                    <div className='wrapper-addOns-block__content_block-bill'>
+                      {navigation === 'add-ons' && bill === 'monthly' && (
+                        <div>sdfsdfsdfsdf</div>
+                      )}
+
+                      {navigation === 'add-ons' && bill === 'yearly' && (
+                        <div>hi</div>
+                      )}
+                    </div>
+                    
+
+                   
+
+                  </div>
+                </div>
+              </>
             )}
           </div>
         </div>
