@@ -299,6 +299,14 @@
         }
       }
     }
+    &_error{
+      width: 100%;
+      height: 30px;
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+      color: #c44e5c
+    }
     &_next-back{
       width: 100%;
       height: 45px;
@@ -338,7 +346,7 @@
         &:hover{
           background-color: #174a8b;
           transition: all 0.5s;
-      }
+        }
       }
     }
   }
@@ -360,6 +368,7 @@
     height: 85%;
     margin-bottom: 30px;
     border: 1px solid black;
+    position: relative;
     &_title{
       color: #002054;
       margin-bottom: 10px;
@@ -375,9 +384,67 @@
       display: flex;
       justify-content: space-between;
       border: 1px solid red;
+      &_monthly-block{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        width: 100%;
+        &_first,
+        &_second,
+        &_third{
+          width: 100%;
+          height: 70px;
+          border: 1px solid #dbdadf;
+          border-radius: 10px;
+          display: grid;
+          justify-content: center;
+          align-items: center;
+          grid-template-columns: 1fr 3fr 1fr;
+        }
+      }
     }
     &_next-back{
-      
+      width: 100%;
+      height: 45px;
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      &_back{
+        width: 120px;
+        height: 45px;
+        border: none;
+        outline: none;
+        color: #9e9fa4;
+        background: white;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.5s;
+        cursor: pointer;
+        &:hover{
+          color: #172b50;
+          font-weight: 600;
+          transition: all 0.5s;
+        }
+      }
+      &_next{
+        width: 120px;
+        height: 45px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        background-color: #03295a;
+        font-weight: 500;
+        color: white;
+        font-size: 16px;
+        transition: all 0.5s;
+        cursor: pointer;
+        &:hover{
+          background-color: #174a8b;
+          transition: all 0.5s;
+        }
+      }
     }
   }
 }
