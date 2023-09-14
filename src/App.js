@@ -4,7 +4,7 @@ import menu from './images/bg-sidebar-desktop.svg'
 import arcade from './images/icon-arcade.svg'
 import advanced from './images/icon-advanced.svg'
 import pro from './images/icon-pro.svg'
-import checkmark from './images/checkmark.svg'
+import checkMark from './images/checkmark.svg'
 
 function App() {
 
@@ -26,10 +26,10 @@ function App() {
   const [plan, setPlan] = useState('');
   const [pricePickAdd, setPricePickAdd] = useState(null)
 
-  const [onlineService, setOnlineService] = useState(null);
+  /*const [onlineService, setOnlineService] = useState(null);
   const [largerStorage, setLargerStorage] = useState(null);
   const [customProfale, setCustomProfile] = useState(null);
-  const [pickAdd, setPickAdd] = useState('')
+  const [pickAdd, setPickAdd] = useState('')*/
 
   const [activeInput, setActiveInput] = useState('');
   const [activeBillPlan, setActiveBillPlan] = useState('')
@@ -41,13 +41,19 @@ function App() {
       setAdvancedBill(12);
       setProBill(15);
     }else if(bill === 'yearly'){
-      setArcadeBill(90);
-      setAdvancedBill(120);
-      setProBill(150);
+      setArcadeBill(9);
+      setAdvancedBill(12);
+      setProBill(15);
+    }if(activeBillPlan === 'arcade') {
+      setBillPrice(bill === 'monthly' ? arcadeBill : arcadeBill * 10); // Обновление цены для Arcade в зависимости от пакета
+    }else if(activeBillPlan === 'advanced'){
+      setBillPrice(bill === 'monthly' ? advancedBill : advancedBill * 10)
+    }else if(activeBillPlan === 'pro'){
+      setBillPrice(bill === 'monthly' ? proBill : proBill * 10)
     }
-  })
+  }, [bill, activeBillPlan, arcadeBill, advancedBill, proBill])
 
-  useEffect(() => {
+  /*useEffect(() => {
     if(bill === 'monthly'){
       setOnlineService(1)
       setLargerStorage(2)
@@ -57,7 +63,7 @@ function App() {
       setLargerStorage(20)
       setCustomProfile(20)
     }
-  })
+  })*/
 
   const nameCheck = /^[a-zA-Z]+$/
   const phoneCheck = /^\+380\d{9}$/;
@@ -133,13 +139,10 @@ function App() {
     setBillPrice(billAmount);
   }
 
-  const getAddOns = (selectedAdd, pickAddPrice) => {
+  /*const getAddOns = (selectedAdd, pickAddPrice) => {
     setPickAdd(selectedAdd)
     setPricePickAdd(pickAddPrice)
-  }
-
-  console.log(pickAdd);
-  console.log(pricePickAdd)
+  }*/
 
   return (
     <div className='wrapper'>
@@ -294,7 +297,7 @@ function App() {
                     {navigation === 'select plan' && bill === 'yearly' && (
                       <>
                         <div 
-                          className='wrapper-selectPlan-block__content_block-bill_arcade-block'
+                          className={`wrapper-selectPlan-block__content_block-bill_arcade-block ${activeBillPlan === 'arcade' ? 'selected' : ''}`}
                           onClick={() => planSelection('arcade', arcadeBill)}
                         >
                           <div className='wrapper-selectPlan-block__content_block-bill_arcade-block_description'>
@@ -307,7 +310,7 @@ function App() {
                           </div>
                         </div>
                         <div 
-                          className='wrapper-selectPlan-block__content_block-bill_advanced-block'
+                          className={`wrapper-selectPlan-block__content_block-bill_advanced-block ${activeBillPlan === 'advanced' ? 'selected' : ''}`}
                           onClick={() => planSelection('advanced', advancedBill)}  
                         >
                           <div className='wrapper-selectPlan-block__content_block-bill_advanced-block_description'>
@@ -320,7 +323,7 @@ function App() {
                           </div>
                         </div>
                         <div 
-                          className='wrapper-selectPlan-block__content_block-bill_pro-block'
+                          className={`wrapper-selectPlan-block__content_block-bill_pro-block ${activeBillPlan === 'pro' ? 'selected' : ''}`}
                           onClick={() =>planSelection('pro', proBill)}  
                         >
                           <div className='wrapper-selectPlan-block__content_block-bill_pro-block_description'>
@@ -360,6 +363,7 @@ function App() {
                   </div>
                 </div>
               </div>
+              
             )}
 
             {navigation === 'add-ons' && (
@@ -369,44 +373,11 @@ function App() {
                     <h1 className='wrapper-addOns-block__content_title'>Pick add-ons</h1>
                     <p className='wrapper-addOns-block__content_description'>Add-ons help enhance your gaming experience</p>
                     <div className='wrapper-addOns-block__content_block-bill'>
-                      {navigation === 'add-ons' && bill === 'monthly' && (
-                        <div className='wrapper-addOns-block__content_block-bill_monthly-block'>
-                          <div 
-                            className='wrapper-addOns-block__content_block-bill_monthly-block_first'
-                            onClick={() => getAddOns('online-service', onlineService)}  
-                          >
-                            <div className=''></div>
-                            <div>
-                              <p>Online service</p>
-                              <p>Access to multiplayer games</p>
-                            </div>
-                            <div>+${onlineService}/mo</div>
-                          </div>
-                          <div className='wrapper-addOns-block__content_block-bill_monthly-block_second'>
-                            <div></div>
-                            <div>
-                              <p>Larger storage</p>
-                              <p>Extra 1TB of cloud save</p>
-                            </div>
-                            <div>+${largerStorage}/mo</div>
-                          </div>
-                          <div 
-                            className='wrapper-addOns-block__content_block-bill_monthly-block_third'
-                            
-                          >
-                            <div></div>
-                            <div>
-                              <p>Customizable profile</p>
-                              <p>Custom theme on your profile</p>
-                            </div>
-                            <div>+${customProfale}/mo</div>
-                          </div>
-                        </div>
+                      
+                      {navigation === 'add-ons' && 'monthly' (
+                        
                       )}
-
-                      {navigation === 'add-ons' && bill === 'yearly' && (
-                        <div>hi</div>
-                      )}
+                      
                     </div>
                     <div className='wrapper-addOns-block__content_next-back'>
                       <button
@@ -422,6 +393,12 @@ function App() {
                     </div>
                   </div>
                 </div>
+              </>
+            )}
+
+            {navigation === 'summary' && (
+              <>
+                <p>sum: {billPrice}</p>
               </>
             )}
           </div>
