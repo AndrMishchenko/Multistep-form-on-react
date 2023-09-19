@@ -4,7 +4,6 @@ import menu from './images/bg-sidebar-desktop.svg'
 import arcade from './images/icon-arcade.svg'
 import advanced from './images/icon-advanced.svg'
 import pro from './images/icon-pro.svg'
-import checkMark from './images/checkmark.svg'
 
 function App() {
 
@@ -16,6 +15,7 @@ function App() {
   const [emailError, setEmailError] = useState('');
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState('');
+  const [activeInput, setActiveInput] = useState('');
 
   const [bill, setBill] = useState('monthly');
   const [slider, setSlider] = useState(false)
@@ -24,16 +24,18 @@ function App() {
   const [advancedBill, setAdvancedBill] = useState(null);
   const [proBill, setProBill] = useState(null);
   const [plan, setPlan] = useState('');
-  const [pricePickAdd, setPricePickAdd] = useState(null)
-
-  /*const [onlineService, setOnlineService] = useState(null);
-  const [largerStorage, setLargerStorage] = useState(null);
-  const [customProfale, setCustomProfile] = useState(null);
-  const [pickAdd, setPickAdd] = useState('')*/
-
-  const [activeInput, setActiveInput] = useState('');
   const [activeBillPlan, setActiveBillPlan] = useState('')
   const [billPrice, setBillPrice] = useState(null)
+
+  const [onlineService, setOnlineService] = useState(null);
+  const [largerStorage, setLargerStorage] = useState(null);
+  const [customProfile, setCustomProfile] = useState(null);
+  const [activeBlock, setActiveBlock] = useState([]);
+  const [cost, setCost] = useState([]);
+
+  const nameCheck = /^[a-zA-Z]+$/
+  const phoneCheck = /^\+380\d{9}$/;
+  const emailCheck = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
   useEffect(() => {
     if(bill === 'monthly'){
@@ -51,23 +53,15 @@ function App() {
     }else if(activeBillPlan === 'pro'){
       setBillPrice(bill === 'monthly' ? proBill : proBill * 10)
     }
-  }, [bill, activeBillPlan, arcadeBill, advancedBill, proBill])
+  }, [bill, activeBillPlan, arcadeBill, advancedBill, proBill]);
 
-  /*useEffect(() => {
+  useEffect(() => {
     if(bill === 'monthly'){
       setOnlineService(1)
       setLargerStorage(2)
       setCustomProfile(2)
-    }else if(bill === 'yeraly'){
-      setOnlineService(10)
-      setLargerStorage(20)
-      setCustomProfile(20)
     }
-  })*/
-
-  const nameCheck = /^[a-zA-Z]+$/
-  const phoneCheck = /^\+380\d{9}$/;
-  const emailCheck = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  }, [])
 
   const navFirstPage = () => {
     setNameError('');
@@ -114,12 +108,8 @@ function App() {
       setPlan('Please, choise bill plan')
     }else{
       setPlan('')
-      setNavigation('add-ons')
+      setNavigation('add ons')
     }
-  }
-
-  const backSecondPage = () => {
-    setNavigation('add-ons')
   }
 
   const fourthPage = () => {
@@ -139,10 +129,16 @@ function App() {
     setBillPrice(billAmount);
   }
 
-  /*const getAddOns = (selectedAdd, pickAddPrice) => {
-    setPickAdd(selectedAdd)
-    setPricePickAdd(pickAddPrice)
-  }*/
+  const getActiveBlock = (block, price) => {
+    if(activeBlock.includes(block)){
+      setActiveBlock(activeBlock.filter(item => item !== block))
+    }if(cost.includes(price)){
+      setCost(cost.filter(item => item !== price))
+    }else{
+      setActiveBlock([...activeBlock, block])
+      setCost(cost + price); 
+    }
+  }
 
   return (
     <div className='wrapper'>
@@ -166,7 +162,7 @@ function App() {
                 </div>
               </div>
               <div className='form-block__nav_menu_third-page'>
-                <div className={navigation === 'add-ons' ? 'form-block__nav_menu_first-page_number-active' : 'form-block__nav_menu_first-page_number-inactive'}>3</div>
+                <div className={navigation === 'add ons' ? 'form-block__nav_menu_first-page_number-active' : 'form-block__nav_menu_first-page_number-inactive'}>3</div>
                 <div className='form-block__nav_menu_first-page_block-step'>
                   <p className='form-block__nav_menu_first-page_block-step_step'>step 3</p>
                   <p className='form-block__nav_menu_first-page_block-step_text'>add-ons</p>
@@ -366,22 +362,67 @@ function App() {
               
             )}
 
-            {navigation === 'add-ons' && (
+            {navigation === 'add ons' && (
               <>
                 <div className='wrapper-addOns-block'>
                   <div className='wrapper-addOns-block__content'>
                     <h1 className='wrapper-addOns-block__content_title'>Pick add-ons</h1>
                     <p className='wrapper-addOns-block__content_description'>Add-ons help enhance your gaming experience</p>
                     <div className='wrapper-addOns-block__content_block-bill'>
-                      
-                      {navigation === 'add-ons' && 'monthly' (
-                        
+
+                      {navigation === 'add ons' && bill === 'monthly' && (
+                        <div className='wrapper-addOns-block__content_block-bill_monthly-block'>
+                          <div 
+                            className={`wrapper-addOns-block__content_block-bill_monthly-block_first ${activeBlock.includes('onlineService') ? 'selected-pickOns': ''}`}
+                            onClick={() => getActiveBlock('onlineService', onlineService)}
+                          >
+                            <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_check'>
+                              {activeBlock.includes('onlineService') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_check_box'></div>}
+                            </div>
+                            <div>
+                              <p>Online service</p>
+                              <p>Access to multiplayer games</p>
+                            </div>
+                            <div>+${onlineService}/mo</div>
+                          </div>
+
+                          <div className='wrapper-addOns-block__content_block-bill_monthly-block_second'>
+                            <div
+                              className={`wrapper-addOns-block__content_block-bill_monthly-block_second ${activeBlock.includes('largerStorage') ? 'selected-pickOns': ''}`}
+                              onClick={() => getActiveBlock('largerStorage', largerStorage)}
+                            >
+                              <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check'>
+                                {activeBlock.includes('largerStorage') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check_box'></div>}
+                              </div>
+                              <div>
+                                <p>Larger storage</p>
+                                <p>Eztra 1TB of cloud save</p>
+                              </div>
+                              <div>+${largerStorage}/mo</div>
+                            </div>
+                          </div>
+
+                          <div className='wrapper-addOns-block__content_block-bill_monthly-block_third'>
+                            <div
+                                className={`wrapper-addOns-block__content_block-bill_monthly-block_third ${activeBlock.includes('custom') ? 'selected-pickOns': ''}`}
+                                onClick={() => getActiveBlock('custom', customProfile)}
+                              >
+                                <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check'>
+                                  {activeBlock.includes('custom') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check_box'></div>}
+                                </div>
+                                <div>
+                                  <p>Larger storage</p>
+                                  <p>Eztra 1TB of cloud save</p>
+                                </div>
+                                <div>+${customProfile}/mo</div>
+                              </div>
+                          </div>
+                        </div>
                       )}
-                      
+                      <p>sum: {cost}</p>
                     </div>
                     <div className='wrapper-addOns-block__content_next-back'>
                       <button
-                        onClick={backSecondPage}
                         className='wrapper-addOns-block__content_next-back_back'
                       >Go back
                       </button>

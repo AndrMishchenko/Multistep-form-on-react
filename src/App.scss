@@ -400,6 +400,27 @@
           align-items: center;
           grid-template-columns: 1fr 3fr 1fr;
           cursor: pointer;
+          &_check{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            &_box-active{
+              background: url(./images/check.png);
+              width: 30px;
+              height: 30px;
+              background-repeat: no-repeat;
+              background-size: contain;
+              background-position: center;
+            }
+            &_box{
+              width: 25px;
+              height: 25px;
+              border: 1px solid #dbdadf;
+              border-radius: 5px;
+            }
+          }
         }
       }
     }
