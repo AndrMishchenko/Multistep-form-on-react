@@ -43,16 +43,16 @@ function App() {
       setAdvancedBill(12);
       setProBill(15);
     }else if(bill === 'yearly'){
-      setArcadeBill(9);
-      setAdvancedBill(12);
-      setProBill(15);
-    }if(activeBillPlan === 'arcade') {
-      setBillPrice(bill === 'monthly' ? arcadeBill : arcadeBill * 10); // Обновление цены для Arcade в зависимости от пакета
+      setArcadeBill(90);
+      setAdvancedBill(120);
+      setProBill(150);
+    }/*if(activeBillPlan === 'arcade') {
+      setBill(bill === 'yearly' ? arcadeBill : arcadeBill * 10); // Обновление цены для Arcade в зависимости от пакета
     }else if(activeBillPlan === 'advanced'){
-      setBillPrice(bill === 'monthly' ? advancedBill : advancedBill * 10)
+      setBill(bill === 'yearly' ? advancedBill : advancedBill * 10)
     }else if(activeBillPlan === 'pro'){
-      setBillPrice(bill === 'monthly' ? proBill : proBill * 10)
-    }
+      setBill(bill === 'yearly' ? proBill : proBill * 10)
+    }*/
   }, [bill, activeBillPlan, arcadeBill, advancedBill, proBill]);
 
   useEffect(() => {
@@ -60,8 +60,12 @@ function App() {
       setOnlineService(1)
       setLargerStorage(2)
       setCustomProfile(2)
+    }else if(bill === 'yearly'){
+      setOnlineService(10)
+      setLargerStorage(20)
+      setCustomProfile(20)
     }
-  }, [])
+  }, [bill])
 
   const navFirstPage = () => {
     setNameError('');
@@ -132,12 +136,18 @@ function App() {
   const getActiveBlock = (block, price) => {
     if(activeBlock.includes(block)){
       setActiveBlock(activeBlock.filter(item => item !== block))
-    }if(cost.includes(price)){
       setCost(cost.filter(item => item !== price))
     }else{
       setActiveBlock([...activeBlock, block])
-      setCost(cost + price); 
+      setCost([...cost, price])
     }
+  }
+
+  const sum = cost.reduce((start, value) => start + value, 0);
+  const fullPrise = sum + billPrice
+
+  const backOnTwoPage = () => {
+    setNavigation('select plan')
   }
 
   return (
@@ -379,51 +389,98 @@ function App() {
                             <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_check'>
                               {activeBlock.includes('onlineService') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_check_box'></div>}
                             </div>
-                            <div>
-                              <p>Online service</p>
-                              <p>Access to multiplayer games</p>
+                            <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_text-info'>
+                              <p className='wrapper-addOns-block__content_block-bill_monthly-block_first_text-info_title'>Online service</p>
+                              <p className='wrapper-addOns-block__content_block-bill_monthly-block_first_text-info_text'>Access to multiplayer games</p>
                             </div>
-                            <div>+${onlineService}/mo</div>
+                            <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_price'>+${onlineService}/mo</div>
                           </div>
 
-                          <div className='wrapper-addOns-block__content_block-bill_monthly-block_second'>
-                            <div
-                              className={`wrapper-addOns-block__content_block-bill_monthly-block_second ${activeBlock.includes('largerStorage') ? 'selected-pickOns': ''}`}
-                              onClick={() => getActiveBlock('largerStorage', largerStorage)}
-                            >
-                              <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check'>
-                                {activeBlock.includes('largerStorage') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check_box'></div>}
-                              </div>
-                              <div>
-                                <p>Larger storage</p>
-                                <p>Eztra 1TB of cloud save</p>
-                              </div>
-                              <div>+${largerStorage}/mo</div>
+                          <div 
+                            className={`wrapper-addOns-block__content_block-bill_monthly-block_second ${activeBlock.includes('largerStorage') ? 'selected-pickOns' : ''}`}
+                            onClick={() => getActiveBlock('largerStorage', largerStorage)}
+                          >
+                            <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check'>
+                            {activeBlock.includes('largerStorage') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check_box'></div>}
+                            </div>
+                            <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_text-info'>
+                              <p className='wrapper-addOns-block__content_block-bill_monthly-block_second_text-info_title'>Larger Storage</p>
+                              <p className='wrapper-addOns-block__content_block-bill_monthly-block_second_text-info_text'>Extra 1TB of cloud save</p>
+                            </div>
+                            <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_price'>
+                              +${largerStorage}/mo
                             </div>
                           </div>
 
-                          <div className='wrapper-addOns-block__content_block-bill_monthly-block_third'>
-                            <div
-                                className={`wrapper-addOns-block__content_block-bill_monthly-block_third ${activeBlock.includes('custom') ? 'selected-pickOns': ''}`}
-                                onClick={() => getActiveBlock('custom', customProfile)}
-                              >
-                                <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check'>
-                                  {activeBlock.includes('custom') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check_box'></div>}
-                                </div>
-                                <div>
-                                  <p>Larger storage</p>
-                                  <p>Eztra 1TB of cloud save</p>
-                                </div>
-                                <div>+${customProfile}/mo</div>
-                              </div>
+                          <div 
+                            className={`wrapper-addOns-block__content_block-bill_monthly-block_third ${activeBlock.includes('customProfile') ? 'selected-pickOns' : ''}`}
+                            onClick={() => getActiveBlock('customProfile', customProfile)}
+                          >
+                            <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check'>
+                              {activeBlock.includes('customProfile') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check_box'></div>}
+                            </div>
+                            <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_text-info'>
+                              <p className='wrapper-addOns-block__content_block-bill_monthly-block_third_text-info_title'>Customizable Profile</p>
+                              <p className='wrapper-addOns-block__content_block-bill_monthly-block_third_text-info_text'>Custom theme on your profile</p>
+                            </div>
+                            <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_price'>+${customProfile}/mo</div>
                           </div>
                         </div>
                       )}
-                      <p>sum: {cost}</p>
+
+                      {navigation === 'add ons' && bill === 'yearly' && (
+                        <div className='wrapper-addOns-block__content_block-bill_yearly-block'>
+                          <div 
+                            className={`wrapper-addOns-block__content_block-bill_yearly-block_first ${activeBlock.includes('onlineService') ? 'selected-pickOns': ''}`}
+                            onClick={() => getActiveBlock('onlineService', onlineService)}
+                          >
+                            <div className='wrapper-addOns-block__content_block-bill_yearly-block_first_check'>
+                              {activeBlock.includes('onlineService') ? <div className='wrapper-addOns-block__content_block-bill_yearly-block_first_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_yearly-block_first_check_box'></div>}
+                            </div>
+                            <div className='wrapper-addOns-block__content_block-bill_yearly-block_first_text-info'>
+                              <p className='wrapper-addOns-block__content_block-bill_yearly-block_first_text-info_title'>Online service</p>
+                              <p className='wrapper-addOns-block__content_block-bill_yearly-block_first_text-info_text'>Access to multiplayer games</p>
+                            </div>
+                            <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_price'>+${onlineService}/yr</div>
+                          </div>
+
+                          <div 
+                            className={`wrapper-addOns-block__content_block-bill_yearly-block_second ${activeBlock.includes('largerStorage') ? 'selected-pickOns' : ''}`}
+                            onClick={() => getActiveBlock('largerStorage', largerStorage)}
+                          >
+                            <div className='wrapper-addOns-block__content_block-bill_yearly-block_second_check'>
+                            {activeBlock.includes('largerStorage') ? <div className='wrapper-addOns-block__content_block-bill_yearly-block_second_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_yearly-block_second_check_box'></div>}
+                            </div>
+                            <div>
+                              <p className='wrapper-addOns-block__content_block-bill_yearly-block_second_text-info_title'>Larger Storage</p>
+                              <p className='wrapper-addOns-block__content_block-bill_yearly-block_second_text-info_text'>Extra 1TB of cloud save</p>
+                            </div>
+                            <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_price'>
+                              +${largerStorage}/yr
+                            </div>
+                          </div>
+
+                          <div 
+                            className={`wrapper-addOns-block__content_block-bill_yearly-block_third ${activeBlock.includes('customProfile') ? 'selected-pickOns' : ''}`}
+                            onClick={() => getActiveBlock('customProfile', customProfile)}
+                          >
+                            <div className='wrapper-addOns-block__content_block-bill_yearly-block_third_check'>
+                              {activeBlock.includes('customProfile') ? <div className='wrapper-addOns-block__content_block-bill_yearly-block_third_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_yearly-block_third_check_box'></div>}
+                            </div>
+                            <div>
+                              <p className='wrapper-addOns-block__content_block-bill_yearly-block_third_text-info_title'>Customizable Profile</p>
+                              <p className='wrapper-addOns-block__content_block-bill_yearly-block_third_text-info_text'>Custom theme on your profile</p>
+                            </div>
+                            <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_price'>+${customProfile}/yr</div>
+                          </div>
+                      </div>
+                      )}
+
                     </div>
                     <div className='wrapper-addOns-block__content_next-back'>
                       <button
                         className='wrapper-addOns-block__content_next-back_back'
+                        onClick={backOnTwoPage}
                       >Go back
                       </button>
                       <button
@@ -439,7 +496,7 @@ function App() {
 
             {navigation === 'summary' && (
               <>
-                <p>sum: {billPrice}</p>
+                <p>sum: {fullPrise}</p>
               </>
             )}
           </div>

@@ -421,6 +421,73 @@
               border-radius: 5px;
             }
           }
+          &_text-info{
+              &_title{
+                font-weight: 700;
+                color: #15304b;
+              }
+              &_text{
+                color: #a9a9b3;
+              }
+          }
+          &_price{
+            color: #534d95;
+            font-weight: 500;
+          }
+        }
+      }
+      &_yearly-block{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        width: 100%;
+        &_first,
+        &_second,
+        &_third{
+          width: 100%;
+          height: 70px;
+          border: 1px solid #dbdadf;
+          border-radius: 10px;
+          display: grid;
+          justify-content: center;
+          align-items: center;
+          grid-template-columns: 1fr 3fr 1fr;
+          cursor: pointer;
+          &_check{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            &_box-active{
+              background: url(./images/check.png);
+              width: 30px;
+              height: 30px;
+              background-repeat: no-repeat;
+              background-size: contain;
+              background-position: center;
+            }
+            &_box{
+              width: 25px;
+              height: 25px;
+              border: 1px solid #dbdadf;
+              border-radius: 5px;
+            }
+          }
+          &_text-info{
+            &_title{
+              font-weight: 700;
+              color: #15304b;
+            }
+            &_text{
+              color: #a9a9b3;
+            }
+          }
+          &_price{
+            color: #534d95;
+            font-weight: 500;
+          }
         }
       }
     }
