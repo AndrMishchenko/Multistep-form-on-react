@@ -18,7 +18,6 @@ function App() {
   const [activeInput, setActiveInput] = useState('');
 
   const [bill, setBill] = useState('monthly');
-  const [slider, setSlider] = useState(false)
 
   const [arcadeBill, setArcadeBill] = useState(null);
   const [advancedBill, setAdvancedBill] = useState(null);
@@ -148,6 +147,10 @@ function App() {
 
   const backOnTwoPage = () => {
     setNavigation('select plan')
+  }
+
+  const change = () => {
+
   }
 
   return (
@@ -496,7 +499,27 @@ function App() {
 
             {navigation === 'summary' && (
               <>
-                <p>sum: {fullPrise}</p>
+                <div className='wrapper-summary-block'>
+                  <div className='wrapper-summary-block__content'>
+                    <h1 className='wrapper-summary-block__content_title'>Finishing up</h1>
+                    <p className='wrapper-summary-block__content_description'>Double-check everything looks OK before confirming.</p>
+                    <div className='wrapper-summary-block__content_wrapper-check-plan'>
+                      <div className='wrapper-summary-block__content_wrapper-check-plan_box'>
+                        <div className='wrapper-summary-block__content_wrapper-check-plan_box_main-plan'>
+                          <div>
+                            <div className='wrapper-summary-block__content_wrapper-check-plan_box_main-plan_select-plan'>{activeBillPlan}({bill})</div>
+                            <div className='wrapper-summary-block__content_wrapper-check-plan_box_main-plan_change' onClick={change}>Change</div> 
+                          </div>
+                          <div>
+                            ${billPrice}/
+                          </div>
+                        </div>
+                        <div className='wrapper-summary-block__content_wrapper-check-plan_box_border'></div>
+                        <div className='wrapper-summary-block__content_wrapper-check-plan_box_add-pack'></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </>
             )}
           </div>
@@ -506,3 +529,5 @@ function App() {
 }
 
 export default App;
+/*<div className='wrapper-summary-block__content_wrapper-check-plan_box_select-plan'>{activeBillPlan}({bill})</div>
+                        <div className='wrapper-summary-block__content_wrapper-check-plan_box_change' onClick={change}>Change</div>*/
