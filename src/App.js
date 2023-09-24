@@ -4,6 +4,7 @@ import menu from './images/bg-sidebar-desktop.svg'
 import arcade from './images/icon-arcade.svg'
 import advanced from './images/icon-advanced.svg'
 import pro from './images/icon-pro.svg'
+import thankYou from './images/icon-thank-you.svg'
 
 function App() {
 
@@ -31,6 +32,8 @@ function App() {
   const [customProfile, setCustomProfile] = useState(null);
   const [activeBlock, setActiveBlock] = useState([]);
   const [cost, setCost] = useState([]);
+
+  const [finalyPage, setfinalyPage] = useState('check info');
 
   const nameCheck = /^[a-zA-Z]+$/
   const phoneCheck = /^\+380\d{9}$/;
@@ -122,8 +125,10 @@ function App() {
   const changeBill = () => {
     if(bill === 'monthly'){
       setBill('yearly')
+      setBillPrice(null)
     }else{
       setBill('monthly')
+      setBillPrice(null)
     }
   }
 
@@ -150,7 +155,30 @@ function App() {
   }
 
   const change = () => {
+    setNavigation('select plan')
+    setActiveBlock([]);
+    setCost([]);
+  }
 
+  const backOnThreePage = () => {
+    setNavigation('add ons')
+  }
+
+  const confirm = () => {
+    setfinalyPage('finaly')
+  }
+
+  const backToStart = () => {
+    setNavigation('personal info');
+    setName('');
+    setEmail('');
+    setPhone('');
+    setPlan('')
+    setActiveBillPlan('');
+    setBillPrice(null)
+    setActiveBlock([]);
+    setCost([]);
+    setfinalyPage('check info')
   }
 
   return (
@@ -268,8 +296,8 @@ function App() {
                     {navigation === 'select plan' && bill === 'monthly' && (
                       <>
                         <div 
-                          className={`wrapper-selectPlan-block__content_block-bill_arcade-block ${activeBillPlan === 'arcade' ? 'selected' : ''}`}
-                          onClick={() => planSelection('arcade', arcadeBill)}>
+                          className={`wrapper-selectPlan-block__content_block-bill_arcade-block ${activeBillPlan === 'Arcade' ? 'selected' : ''}`}
+                          onClick={() => planSelection('Arcade', arcadeBill)}>
                           <div className='wrapper-selectPlan-block__content_block-bill_arcade-block_description'>
                             <img className='wrapper-selectPlan-block__content_block-bill_arcade-block_description_img' src={arcade}></img>
                             <div className='wrapper-selectPlan-block__content_block-bill_arcade-block_description_info'>
@@ -279,8 +307,8 @@ function App() {
                           </div>
                         </div>
                         <div 
-                          className={`wrapper-selectPlan-block__content_block-bill_advanced-block ${activeBillPlan === 'advanced' ? 'selected' : ''}` }
-                          onClick={() => planSelection('advanced', advancedBill)}>
+                          className={`wrapper-selectPlan-block__content_block-bill_advanced-block ${activeBillPlan === 'Advanced' ? 'selected' : ''}` }
+                          onClick={() => planSelection('Advanced', advancedBill)}>
                           <div className='wrapper-selectPlan-block__content_block-bill_advanced-block_description'>
                             <img className='wrapper-selectPlan-block__content_block-bill_advanced-block_description_img' src={advanced}></img>
                               <div className='wrapper-selectPlan-block__content_block-bill_advanced-block_description_info'>
@@ -290,8 +318,8 @@ function App() {
                           </div>
                         </div>
                         <div 
-                          className={`wrapper-selectPlan-block__content_block-bill_pro-block ${activeBillPlan === 'pro' ? 'selected' : ''}`} 
-                          onClick={() => planSelection('pro', proBill)}>
+                          className={`wrapper-selectPlan-block__content_block-bill_pro-block ${activeBillPlan === 'Pro' ? 'selected' : ''}`} 
+                          onClick={() => planSelection('Pro', proBill)}>
                           <div className='wrapper-selectPlan-block__content_block-bill_pro-block_description'>
                             <img className='wrapper-selectPlan-block__content_block-bill_pro-block_description_img' src={pro}></img>
                               <div className='wrapper-selectPlan-block__content_block-bill_pro-block_description_info'>
@@ -306,8 +334,8 @@ function App() {
                     {navigation === 'select plan' && bill === 'yearly' && (
                       <>
                         <div 
-                          className={`wrapper-selectPlan-block__content_block-bill_arcade-block ${activeBillPlan === 'arcade' ? 'selected' : ''}`}
-                          onClick={() => planSelection('arcade', arcadeBill)}
+                          className={`wrapper-selectPlan-block__content_block-bill_arcade-block ${activeBillPlan === 'Arcade ' ? 'selected' : ''}`}
+                          onClick={() => planSelection('Arcade ', arcadeBill)}
                         >
                           <div className='wrapper-selectPlan-block__content_block-bill_arcade-block_description'>
                             <img className='wrapper-selectPlan-block__content_block-bill_arcade-block_description_img' src={arcade}></img>
@@ -319,8 +347,8 @@ function App() {
                           </div>
                         </div>
                         <div 
-                          className={`wrapper-selectPlan-block__content_block-bill_advanced-block ${activeBillPlan === 'advanced' ? 'selected' : ''}`}
-                          onClick={() => planSelection('advanced', advancedBill)}  
+                          className={`wrapper-selectPlan-block__content_block-bill_advanced-block ${activeBillPlan === 'Advanced ' ? 'selected' : ''}`}
+                          onClick={() => planSelection('Advanced ', advancedBill)}  
                         >
                           <div className='wrapper-selectPlan-block__content_block-bill_advanced-block_description'>
                             <img className='wrapper-selectPlan-block__content_block-bill_advanced-block_description_img' src={advanced}></img>
@@ -332,8 +360,8 @@ function App() {
                           </div>
                         </div>
                         <div 
-                          className={`wrapper-selectPlan-block__content_block-bill_pro-block ${activeBillPlan === 'pro' ? 'selected' : ''}`}
-                          onClick={() =>planSelection('pro', proBill)}  
+                          className={`wrapper-selectPlan-block__content_block-bill_pro-block ${activeBillPlan === 'Pro ' ? 'selected' : ''}`}
+                          onClick={() =>planSelection('Pro ', proBill)}  
                         >
                           <div className='wrapper-selectPlan-block__content_block-bill_pro-block_description'>
                             <img className='wrapper-selectPlan-block__content_block-bill_pro-block_description_img' src={pro}></img>
@@ -386,11 +414,11 @@ function App() {
                       {navigation === 'add ons' && bill === 'monthly' && (
                         <div className='wrapper-addOns-block__content_block-bill_monthly-block'>
                           <div 
-                            className={`wrapper-addOns-block__content_block-bill_monthly-block_first ${activeBlock.includes('onlineService') ? 'selected-pickOns': ''}`}
-                            onClick={() => getActiveBlock('onlineService', onlineService)}
+                            className={`wrapper-addOns-block__content_block-bill_monthly-block_first ${activeBlock.includes('Online service') ? 'selected-pickOns': ''}`}
+                            onClick={() => getActiveBlock('Online service', onlineService)}
                           >
                             <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_check'>
-                              {activeBlock.includes('onlineService') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_check_box'></div>}
+                              {activeBlock.includes('Online service') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_check_box'></div>}
                             </div>
                             <div className='wrapper-addOns-block__content_block-bill_monthly-block_first_text-info'>
                               <p className='wrapper-addOns-block__content_block-bill_monthly-block_first_text-info_title'>Online service</p>
@@ -400,11 +428,11 @@ function App() {
                           </div>
 
                           <div 
-                            className={`wrapper-addOns-block__content_block-bill_monthly-block_second ${activeBlock.includes('largerStorage') ? 'selected-pickOns' : ''}`}
-                            onClick={() => getActiveBlock('largerStorage', largerStorage)}
+                            className={`wrapper-addOns-block__content_block-bill_monthly-block_second ${activeBlock.includes('Larger storage') ? 'selected-pickOns' : ''}`}
+                            onClick={() => getActiveBlock('Larger storage', largerStorage)}
                           >
                             <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check'>
-                            {activeBlock.includes('largerStorage') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check_box'></div>}
+                            {activeBlock.includes('Larger storage') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_check_box'></div>}
                             </div>
                             <div className='wrapper-addOns-block__content_block-bill_monthly-block_second_text-info'>
                               <p className='wrapper-addOns-block__content_block-bill_monthly-block_second_text-info_title'>Larger Storage</p>
@@ -416,11 +444,11 @@ function App() {
                           </div>
 
                           <div 
-                            className={`wrapper-addOns-block__content_block-bill_monthly-block_third ${activeBlock.includes('customProfile') ? 'selected-pickOns' : ''}`}
-                            onClick={() => getActiveBlock('customProfile', customProfile)}
+                            className={`wrapper-addOns-block__content_block-bill_monthly-block_third ${activeBlock.includes('Custom profile') ? 'selected-pickOns' : ''}`}
+                            onClick={() => getActiveBlock('Custom profile', customProfile)}
                           >
                             <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check'>
-                              {activeBlock.includes('customProfile') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check_box'></div>}
+                              {activeBlock.includes('Custom profile') ? <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_check_box'></div>}
                             </div>
                             <div className='wrapper-addOns-block__content_block-bill_monthly-block_third_text-info'>
                               <p className='wrapper-addOns-block__content_block-bill_monthly-block_third_text-info_title'>Customizable Profile</p>
@@ -434,11 +462,11 @@ function App() {
                       {navigation === 'add ons' && bill === 'yearly' && (
                         <div className='wrapper-addOns-block__content_block-bill_yearly-block'>
                           <div 
-                            className={`wrapper-addOns-block__content_block-bill_yearly-block_first ${activeBlock.includes('onlineService') ? 'selected-pickOns': ''}`}
-                            onClick={() => getActiveBlock('onlineService', onlineService)}
+                            className={`wrapper-addOns-block__content_block-bill_yearly-block_first ${activeBlock.includes('Online service') ? 'selected-pickOns': ''}`}
+                            onClick={() => getActiveBlock('Online service', onlineService)}
                           >
                             <div className='wrapper-addOns-block__content_block-bill_yearly-block_first_check'>
-                              {activeBlock.includes('onlineService') ? <div className='wrapper-addOns-block__content_block-bill_yearly-block_first_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_yearly-block_first_check_box'></div>}
+                              {activeBlock.includes('Online service') ? <div className='wrapper-addOns-block__content_block-bill_yearly-block_first_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_yearly-block_first_check_box'></div>}
                             </div>
                             <div className='wrapper-addOns-block__content_block-bill_yearly-block_first_text-info'>
                               <p className='wrapper-addOns-block__content_block-bill_yearly-block_first_text-info_title'>Online service</p>
@@ -448,11 +476,11 @@ function App() {
                           </div>
 
                           <div 
-                            className={`wrapper-addOns-block__content_block-bill_yearly-block_second ${activeBlock.includes('largerStorage') ? 'selected-pickOns' : ''}`}
-                            onClick={() => getActiveBlock('largerStorage', largerStorage)}
+                            className={`wrapper-addOns-block__content_block-bill_yearly-block_second ${activeBlock.includes('Larger storage') ? 'selected-pickOns' : ''}`}
+                            onClick={() => getActiveBlock('Larger storage', largerStorage)}
                           >
                             <div className='wrapper-addOns-block__content_block-bill_yearly-block_second_check'>
-                            {activeBlock.includes('largerStorage') ? <div className='wrapper-addOns-block__content_block-bill_yearly-block_second_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_yearly-block_second_check_box'></div>}
+                            {activeBlock.includes('Larger storage') ? <div className='wrapper-addOns-block__content_block-bill_yearly-block_second_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_yearly-block_second_check_box'></div>}
                             </div>
                             <div>
                               <p className='wrapper-addOns-block__content_block-bill_yearly-block_second_text-info_title'>Larger Storage</p>
@@ -464,11 +492,11 @@ function App() {
                           </div>
 
                           <div 
-                            className={`wrapper-addOns-block__content_block-bill_yearly-block_third ${activeBlock.includes('customProfile') ? 'selected-pickOns' : ''}`}
-                            onClick={() => getActiveBlock('customProfile', customProfile)}
+                            className={`wrapper-addOns-block__content_block-bill_yearly-block_third ${activeBlock.includes('Custom profile') ? 'selected-pickOns' : ''}`}
+                            onClick={() => getActiveBlock('Custom profile', customProfile)}
                           >
                             <div className='wrapper-addOns-block__content_block-bill_yearly-block_third_check'>
-                              {activeBlock.includes('customProfile') ? <div className='wrapper-addOns-block__content_block-bill_yearly-block_third_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_yearly-block_third_check_box'></div>}
+                              {activeBlock.includes('Custom profile') ? <div className='wrapper-addOns-block__content_block-bill_yearly-block_third_check_box-active'></div> : <div className='wrapper-addOns-block__content_block-bill_yearly-block_third_check_box'></div>}
                             </div>
                             <div>
                               <p className='wrapper-addOns-block__content_block-bill_yearly-block_third_text-info_title'>Customizable Profile</p>
@@ -501,23 +529,65 @@ function App() {
               <>
                 <div className='wrapper-summary-block'>
                   <div className='wrapper-summary-block__content'>
-                    <h1 className='wrapper-summary-block__content_title'>Finishing up</h1>
-                    <p className='wrapper-summary-block__content_description'>Double-check everything looks OK before confirming.</p>
-                    <div className='wrapper-summary-block__content_wrapper-check-plan'>
-                      <div className='wrapper-summary-block__content_wrapper-check-plan_box'>
-                        <div className='wrapper-summary-block__content_wrapper-check-plan_box_main-plan'>
-                          <div>
-                            <div className='wrapper-summary-block__content_wrapper-check-plan_box_main-plan_select-plan'>{activeBillPlan}({bill})</div>
-                            <div className='wrapper-summary-block__content_wrapper-check-plan_box_main-plan_change' onClick={change}>Change</div> 
-                          </div>
-                          <div>
-                            ${billPrice}/
+                    
+                    {navigation === 'summary' && finalyPage === 'check info' && (
+                      <>
+                        <h1 className='wrapper-summary-block__content_title'>Finishing up</h1>
+                        <p className='wrapper-summary-block__content_description'>Double-check everything looks OK before confirming.</p>
+                        <div className='wrapper-summary-block__content_wrapper-check-plan'>
+                          <div className='wrapper-summary-block__content_wrapper-check-plan_box'>
+                            <div className='wrapper-summary-block__content_wrapper-check-plan_box_main-plan'>
+                              <div>
+                                <div className='wrapper-summary-block__content_wrapper-check-plan_box_main-plan_select-plan'>{activeBillPlan} ({bill === 'monthly' ? <span>Monthly</span> : <span>Yearly</span>})</div>
+                                <div className='wrapper-summary-block__content_wrapper-check-plan_box_main-plan_change' onClick={change}>Change</div> 
+                              </div>
+                              <div className='wrapper-summary-block__content_wrapper-check-plan_box_main-plan_price'>
+                                ${billPrice}/{bill === 'monthly' ? <span>mo</span> : <span>yr</span>}
+                              </div>
+                            </div>
+                            <div className='wrapper-summary-block__content_wrapper-check-plan_box_border'></div>
+                            <div className='wrapper-summary-block__content_wrapper-check-plan_box_add-pack'>
+                              <div className='wrapper-summary-block__content_wrapper-check-plan_box_add-pack_block-add'>
+                                {activeBlock.map((item) => (
+                                  <div className='wrapper-summary-block__content_wrapper-check-plan_box_add-pack_block-add_text'>{item}</div>
+                                ))}
+                              </div>
+                              <div className='wrapper-summary-block__content_wrapper-check-plan_box_add-pack_price-add'>
+                                {cost.map((money) => (
+                                  <div className='wrapper-summary-block__content_wrapper-check-plan_box_add-pack_price-add_text'>+${money}/{bill === 'monthly' ? <span>mo</span> : <span>yr</span>}</div>
+                                ))}
+                              </div>
+                            </div>
+                            
                           </div>
                         </div>
-                        <div className='wrapper-summary-block__content_wrapper-check-plan_box_border'></div>
-                        <div className='wrapper-summary-block__content_wrapper-check-plan_box_add-pack'></div>
+                        <div className='wrapper-summary-block__content_total-price'>
+                          <div className='wrapper-summary-block__content_total-price_text'>Total (per {bill === 'monthly' ? <span>month</span> : <span>year</span>})</div>
+                          <div className='wrapper-summary-block__content_total-price_cost'>+${fullPrise}/{bill === 'monthly' ? <span>mo</span> : <span>yr</span>}</div>
+                        </div>
+
+                        <div className='wrapper-summary-block__content_next-back'>
+                          <button
+                            className='wrapper-summary-block__content_next-back_back'
+                            onClick={backOnThreePage}
+                          >Go back
+                          </button>
+                          <button
+                            onClick={confirm}
+                            className='wrapper-summary-block__content_next-back_next'
+                          >Confirm
+                          </button>
+                        </div>
+                      </>
+                    )}
+
+                    {navigation === 'summary' && finalyPage === 'finaly' &&(
+                      <div className='wrapper-summary-block__finaly'>
+                        <img src={thankYou} onClick={backToStart}></img>
+                        <p className='wrapper-summary-block__finaly_title'>Thank you!</p>
+                        <p className='wrapper-summary-block__finaly_text'>Thanks for confirming your subscription! We hope you have fun using uor platform. If you ever nedd support, please fell free to email us at support@loremgaming.com.</p>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </>
@@ -529,5 +599,3 @@ function App() {
 }
 
 export default App;
-/*<div className='wrapper-summary-block__content_wrapper-check-plan_box_select-plan'>{activeBillPlan}({bill})</div>
-                        <div className='wrapper-summary-block__content_wrapper-check-plan_box_change' onClick={change}>Change</div>*/

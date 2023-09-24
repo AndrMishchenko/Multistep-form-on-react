@@ -548,13 +548,11 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  border: 1px solid red;
   &__content{
     width: 70%;
     height: 85%;
     margin-bottom: 30px;
     position: relative;
-    border: 1px solid black;
     &_title{
       color: #002054;
       margin-bottom: 10px;
@@ -576,31 +574,145 @@
         align-items: center;
         justify-content: space-between;
         flex-direction: column;
-        border: 1px solid red;
         width: 90%;
         height: 80%;
         &_main-plan{
           width: 100%;
           height: 30%;
-          border: 1px solid blue;
-          &_selected{
-
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          &_select-plan{
+            color: #304256;
+            font-weight: 700;
           }
           &_change{
-            
+            text-decoration: underline;
+            color: #a1a1a9;
+            font-weight: 500;
+            cursor: pointer;
+            &:hover{
+              color: #564ebb;
+            }
+          }
+          &_price{
+            font-weight: 700;
+            color: #102550;
           }
         }
         &_border{
           width: 100%;
-          height: 1px;
+          height: 2px;
           background-color: #e7e8ed;
         }
         &_add-pack{
           width: 100%;
           height: 60%;
-          border: 1px solid green;
+          display: flex;
+          justify-content: space-between;
+          &_block-add{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-direction: column;
+            &_text{
+              color: #a2a2ac;
+              font-weight: 500;
+              font-size: 16px;
+            }
+          }
+          &_price-add{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-direction: column;
+            &_text{
+              color: #2c3951;
+              font-weight: 500;
+              font-size: 16px;
+            }
+          }
         }
       }
     }
+    &_total-price{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 20px 20px;
+      &_text{
+        color: #a2a2ac;
+        font-weight: 500;
+        font-size: 16px;
+      }
+      &_cost{
+        color: #4b3cdf;
+        font-weight: 700;
+        font-size: 20px;
+      }
+    }
+    &_next-back{
+      width: 100%;
+      height: 45px;
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      &_back{
+        width: 70px;
+        height: 45px;
+        border: none;
+        outline: none;
+        color: #9e9fa4;
+        background: white;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.5s;
+        cursor: pointer;
+        &:hover{
+          color: #172b50;
+          font-weight: 600;
+          transition: all 0.5s;
+        }
+      }
+      &_next{
+        width: 120px;
+        height: 45px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        background-color: #03295a;
+        font-weight: 500;
+        color: white;
+        font-size: 16px;
+        transition: all 0.5s;
+        cursor: pointer;
+        &:hover{
+          background-color: #174a8b;
+          transition: all 0.5s;
+        }
+      }
+    }
+  }
+  &__finaly{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      &_title{
+        color: #002859;
+        font-weight: 700;
+        font-size: 40px;
+        margin-top: 20px;
+      }
+      &_text{
+        text-align: center;
+        font-weight: 400;
+        color: #a1a1a9;
+        margin-top: 15px;
+        cursor: pointer;
+      }
   }
 }
